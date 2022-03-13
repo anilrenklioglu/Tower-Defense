@@ -9,7 +9,7 @@ public class BuildingTypeSelectUI : MonoBehaviour
    
    private void Awake()
    {
-      Transform buttonTemplate = transform.Find("ButtonTemplate");
+      /*Transform buttonTemplate = transform.Find("ButtonTemplate");
       
       buttonTemplate.gameObject.SetActive(false);
       
@@ -31,12 +31,12 @@ public class BuildingTypeSelectUI : MonoBehaviour
 
          buttonTransform.GetComponent<Button>().onClick.AddListener(() =>
          {
-            BuildingManager.instance.SetActiveBuildingType(buildingType);
+            
          } );
 
          index++; 
 
 
-      }
+      }*/
    }
 }

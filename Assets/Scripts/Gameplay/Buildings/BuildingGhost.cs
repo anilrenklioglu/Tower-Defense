@@ -1,49 +1,35 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Gameplay.Buildings;
+using Gameplay.Buildings.Base;
 using UnityEngine;
 
 public class BuildingGhost : MonoBehaviour
 {
     public static BuildingGhost instance;
     
-    private GameObject spriteGameObject;
+    [SerializeField] private GameObject spriteGameObject;
     
     private void Awake()
     {
         instance = this;
-        
-        spriteGameObject = transform.Find("sprite").gameObject;
-        
         Hide();
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        BuildingManager.instance.OnActiveBuildingTypeChanged += BuildingManager_OnActiveBuildingTypeChanged;
+        BuildingEventManager.GhostCreationEvent += BuildingEventManagerOnGhostCreationEvent;
     }
 
-    private void BuildingManager_OnActiveBuildingTypeChanged(object sender, BuildingManager.OnActiveBuildingTypeChangedEventArgs e)
+    private void BuildingEventManagerOnGhostCreationEvent(BuildingTypeScriptableObject building)
     {
-        if (e.activeBuildingType == null)
-        {
-            Hide();
-        }
-
-        else
-        {
-            Show(e.activeBuildingType.sprite);
-        }
+        Show(building.sprite);
     }
-
+    
     private void Update()
     {
         transform.position = UtilClasses.GetMousePosition();
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Hide();
-        }
     }
 
     private void Show(Sprite ghostSprite)

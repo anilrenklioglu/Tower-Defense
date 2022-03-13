@@ -92,6 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7807409883828398004}
   - component: {fileID: 4554776358961879384}
+  - component: {fileID: 1916292934377541975}
   m_Layer: 0
   m_Name: ArcherTower
   m_TagString: Untagged
@@ -140,3 +141,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4.6995187, y: 5.470965}
   m_EdgeRadius: 0
+--- !u!114 &1916292934377541975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6969895908877215109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b5a95c71d624eedbdbc6b62235fe5e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myType: 3

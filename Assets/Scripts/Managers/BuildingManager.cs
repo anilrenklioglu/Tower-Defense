@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Gameplay.Buildings;
+using Gameplay.Buildings.Base;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -13,13 +15,7 @@ public class BuildingManager : MonoBehaviour
    private BuildingTypeListScriptableObject _buildingTypeList;
    
    private Camera mainCamera;
-
-   public event EventHandler<OnActiveBuildingTypeChangedEventArgs> OnActiveBuildingTypeChanged;
    
-   public class OnActiveBuildingTypeChangedEventArgs : EventArgs
-   {
-      public BuildingTypeScriptableObject activeBuildingType;
-   }
    
    private void Awake()
    {
@@ -32,23 +28,30 @@ public class BuildingManager : MonoBehaviour
       activeBuildingType = _buildingTypeList.list[0];
    }
 
-   void Update()
+   public void CreateGhost(BuildingType type)
    {
-      if (Input.GetMouseButtonDown(0)  && !EventSystem.current.IsPointerOverGameObject())
+      BuildingTypeScriptableObject newObj = null;
+      for (int i = 0; i < _buildingTypeList.list.Count; i++)
       {
-         Instantiate(activeBuildingType.prefab, UtilClasses.GetMousePosition(), Quaternion.identity);
-         
-         BuildingGhost.instance.Hide();
+         if (_buildingTypeList.list[i].buildingBase.myType == type)
+         {
+            newObj = _buildingTypeList.list[i];
+            break;
+         }
       }
+      
+      BuildingEventManager.instance.GhostCreationEventCallback(newObj);
+      
    }
 
-   public void SetActiveBuildingType(BuildingTypeScriptableObject buildingType)
+   public void CreateBuilding(BuildingBase @base)
    {
-      OnActiveBuildingTypeChanged?.Invoke(this, 
-         new OnActiveBuildingTypeChangedEventArgs{activeBuildingType = activeBuildingType});
-     
-      activeBuildingType = buildingType;
+      Instantiate(@base.gameObject, UtilClasses.GetMousePosition(), Quaternion.identity);
+         
+      BuildingGhost.instance.Hide();
+      
    }
+   
 
    public BuildingTypeScriptableObject GetActiveBuildingType()
    {

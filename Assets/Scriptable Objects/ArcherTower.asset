@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44678e6512016f64e8b4046f6b36ef2f, type: 3}
   m_Name: ArcherTower
   m_EditorClassIdentifier: 
+  buildingBase: {fileID: 1916292934377541975, guid: 15065af0bc978894ba50482665b562f1, type: 3}
   nameString: Archer Tower
   prefab: {fileID: 7807409883828398004, guid: 15065af0bc978894ba50482665b562f1, type: 3}
   cost: 0

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44678e6512016f64e8b4046f6b36ef2f, type: 3}
   m_Name: MageTower
   m_EditorClassIdentifier: 
+  buildingBase: {fileID: -4834091427643332288, guid: 6b23a66668db5ae4ba34270add197653, type: 3}
   nameString: Mage Tower
   prefab: {fileID: 557159058924186260, guid: 6b23a66668db5ae4ba34270add197653, type: 3}
   cost: 0

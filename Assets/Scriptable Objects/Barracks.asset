@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44678e6512016f64e8b4046f6b36ef2f, type: 3}
   m_Name: Barracks
   m_EditorClassIdentifier: 
+  buildingBase: {fileID: -7822115848835763449, guid: d19e5d07aa05b8446999a6f9cb3cbb75, type: 3}
   nameString: Barracks
   prefab: {fileID: 6929976417650931294, guid: d19e5d07aa05b8446999a6f9cb3cbb75, type: 3}
   cost: 0
