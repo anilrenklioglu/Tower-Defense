@@ -10,4 +10,6 @@ public class BuildingTypeScriptableObject : ScriptableObject
     public Transform prefab;
     
     public int cost;
+
+    public Sprite sprite;
 }

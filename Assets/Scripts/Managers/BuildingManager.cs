@@ -3,47 +3,55 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class BuildingManager : MonoBehaviour
 {
-
-   private BuildingTypeScriptableObject buildingType;
+   public static BuildingManager instance;
+   
+   private BuildingTypeScriptableObject activeBuildingType;
    private BuildingTypeListScriptableObject _buildingTypeList;
    
    private Camera mainCamera;
+
+   public event EventHandler<OnActiveBuildingTypeChangedEventArgs> OnActiveBuildingTypeChanged;
    
-   private void Start()
+   public class OnActiveBuildingTypeChangedEventArgs : EventArgs
    {
+      public BuildingTypeScriptableObject activeBuildingType;
+   }
+   
+   private void Awake()
+   {
+      instance = this;
+      
       mainCamera = Camera.main;
 
       _buildingTypeList = Resources.Load<BuildingTypeListScriptableObject>(typeof(BuildingTypeListScriptableObject).Name);
-      buildingType = _buildingTypeList.list[0];
+      
+      activeBuildingType = _buildingTypeList.list[0];
    }
 
    void Update()
    {
-      if (Input.GetMouseButtonDown(0))
+      if (Input.GetMouseButtonDown(0)  && !EventSystem.current.IsPointerOverGameObject())
       {
-         Instantiate(buildingType.prefab, GetMousePosition(), Quaternion.identity);
-      }
-
-      if (Input.GetKeyDown(KeyCode.D))
-      {
-         buildingType = _buildingTypeList.list[0];
-      }
-      
-      if (Input.GetKeyDown(KeyCode.A))
-      {
-         buildingType = _buildingTypeList.list[2];
+         Instantiate(activeBuildingType.prefab, UtilClasses.GetMousePosition(), Quaternion.identity);
+         
+         BuildingGhost.instance.Hide();
       }
    }
 
-   private Vector3 GetMousePosition()
+   public void SetActiveBuildingType(BuildingTypeScriptableObject buildingType)
    {
-      Vector3 mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+      OnActiveBuildingTypeChanged?.Invoke(this, 
+         new OnActiveBuildingTypeChangedEventArgs{activeBuildingType = activeBuildingType});
+     
+      activeBuildingType = buildingType;
+   }
 
-      mousePos.z = 0f;
-
-      return mousePos;
+   public BuildingTypeScriptableObject GetActiveBuildingType()
+   {
+      return activeBuildingType;
    }
 }
